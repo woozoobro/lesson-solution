@@ -1,8 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Users, Laptop, Crosshair } from 'lucide-react';
+import { Zap, Users, Laptop, Crosshair, LucideIcon } from 'lucide-react';
 
-const PocoLetter = ({ letter, word, icon: Icon, description }) => (
+interface PocoLetterProps {
+  letter: string;
+  word: string;
+  icon: LucideIcon;
+  description: string;
+}
+
+
+const PocoLetter = ({ letter, word, icon: Icon, description }: PocoLetterProps) => (
   <motion.div 
     className="bg-gradient-to-br from-teal-400 to-indigo-400 p-6 rounded-lg shadow-lg text-white"
     whileHover={{ scale: 1.05, rotate: 2 }}

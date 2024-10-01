@@ -1,40 +1,36 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import {
-  ChevronRight,
-  BookOpen,
-  Calendar,
-  Users,
-  CreditCard,
-  Check,
-  X,
-} from "lucide-react";
+import { ChevronRight, Check, X } from "lucide-react";
 import PocoLetter from "./components/PocoLetter";
 import FloatingCTA from "./components/FloatingCTA";
+import Image from "next/image";
 
-const FeatureCard = ({ icon: Icon, title, description }) => (
-  <motion.div
-    className="bg-white p-6 rounded-lg shadow-lg"
-    whileHover={{ y: -5 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    <Icon className="w-10 h-10 text-indigo-500 mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{description}</p>
-  </motion.div>
-);
+interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+}
+interface PricingFeature {
+  included: boolean;
+  text: string;
+}
 
-const TestimonialCard = ({ name, role, content }) => (
+interface PricingCardProps {
+  plan: string;
+  price: string;
+  features: PricingFeature[];
+}
+
+const TestimonialCard = ({ name, role, content }: Testimonial) => (
   <div className="bg-white p-6 rounded-lg shadow-lg">
-    <p className="text-gray-600 mb-4">"{content}"</p>
+    <p className="text-gray-600 mb-4">{content}</p>
     <p className="font-semibold">{name}</p>
     <p className="text-sm text-gray-500">{role}</p>
   </div>
 );
 
-const PricingCard = ({ plan, price, features }) => (
+const PricingCard = ({ plan, price, features }: PricingCardProps) => (
   <div className="bg-white p-6 rounded-lg shadow-lg text-center">
     <h3 className="text-2xl font-bold mb-2">{plan}</h3>
     <p className="text-4xl font-bold text-indigo-600 mb-6">
@@ -155,9 +151,11 @@ export default function EnhancedLandingPage() {
             >
               {activeTab === "feature1" && (
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                     alt="수강관리 기능"
+                    width={700}
+                    height={500}
                     className="rounded-lg shadow-lg"
                   />
                   <div>
@@ -188,9 +186,11 @@ export default function EnhancedLandingPage() {
               )}
               {activeTab === "feature2" && (
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1468&q=80"
                     alt="일정관리 기능"
+                    width={700}
+                    height={500}
                     className="rounded-lg shadow-lg"
                   />
                   <div>
@@ -221,9 +221,11 @@ export default function EnhancedLandingPage() {
               )}
               {activeTab === "feature3" && (
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
                     alt="결제시스템 기능"
+                    width={700}
+                    height={500}
                     className="rounded-lg shadow-lg"
                   />
                   <div>
