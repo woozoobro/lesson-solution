@@ -88,7 +88,6 @@ const MarqueePartners = () => {
       gradientTo: "to-cyan-50",
       iconColor: "text-blue-600",
     },
-    
   ];
 
   return (
@@ -239,26 +238,51 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white py-36 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-600/20 to-blue-900/40"></div>
-        <div className="container mx-auto px-4 relative">
+      <section className="relative min-h-[600px] text-white overflow-hidden">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+        {/* Overlay Layers */}
+        <div className="absolute inset-0 bg-black/50" />{" "}
+        {/* Main dim overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/50 to-transparent" />{" "}
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-soft-light" />{" "}
+        {/* Texture overlay */}
+        {/* Content */}
+        <div className="relative h-full container mx-auto px-4 py-36">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text">
               Navigate AI With Confidence
             </h1>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl md:text-2xl mb-8 text-blue-100/90">
               Your guide to understanding, verifying, and effectively using
               AI-generated content
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/chat">
-                <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                <button
+                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold
+                           hover:bg-blue-50 transition-all duration-300
+                           shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
                   Try out
                 </button>
               </Link>
               <Link href="/guideline">
-                <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                <button
+                  className="border border-white/80 px-8 py-3 rounded-lg font-semibold
+                           hover:bg-white/10 transition-all duration-300
+                           backdrop-blur-sm hover:border-white
+                           shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
                   View Guidelines
                 </button>
               </Link>
