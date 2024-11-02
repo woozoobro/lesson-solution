@@ -359,7 +359,7 @@ export default function ChatView() {
       <div className="bg-white border-t border-gray-200 p-4">
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto items-center">
           <div className="flex items-center gap-4">
-            <div className="flex-1">
+            <div className="flex-1 flex items-center">
               <textarea
                 value={input}
                 readOnly
