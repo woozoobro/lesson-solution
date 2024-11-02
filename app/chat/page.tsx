@@ -21,48 +21,59 @@ interface Source {
 export default function ChatView() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [input, setInput] = useState('Can i trust AI generated answers?');
+  const [input, setInput] = useState("What's the history and health benefits of pumpkin pie for this fall season?");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
-
   const presetAnswer: Message = {
     id: '2',
     role: 'assistant',
-    content: `AI answers can be helpful but should be critically evaluated. Here are key considerations:
+    content: `Pumpkin pie, a beloved autumn tradition, has a rich history dating back to early American colonists. Here's what makes it special:
 
-1. AI models can make mistakes or "hallucinate" information
-2. Their knowledge is limited to their training data
-3. They may not have access to real-time information
-4. Sources should always be verified independently
+Historical Background:
+- Native Americans first introduced pumpkins to European settlers
+- The first recorded pumpkin pie recipe appeared in an English cookbook in 1675
+- It became a Thanksgiving staple in the late 1700s
 
-Best practices include:
-- Cross-referencing information with reliable sources
-- Understanding the AI's limitations
-- Using AI as a starting point for research, not the final authority
-- Being particularly careful with technical, medical, or legal information`,
+Health Benefits of Pumpkin Pie:
+1. Nutritional Value
+- Rich in beta-carotene and vitamin A
+- Good source of fiber and potassium
+- Contains antioxidants that support eye health
+
+2. Wellness Benefits
+- Pumpkin's high fiber content aids digestion
+- Contains compounds that may boost immune function
+- Natural spices like cinnamon help regulate blood sugar
+
+Modern Significance:
+- Symbol of harvest celebrations and fall festivities
+- Popular seasonal offering in cafes and bakeries
+- Represents family traditions and cultural heritage
+
+While enjoying this seasonal treat, remember that traditional recipes can be adapted for various dietary preferences while maintaining its cherished autumn flavor profile.`,
     sources: [
       {
-        title: "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?",
-        author: "Emily M. Bender et al.",
-        year: "2021",
+        title: "The History of Pumpkin Pie in North America",
+        author: "Culinary History Institute",
+        year: "2022",
         type: "research",
-        url: "ACM Digital Library"
+        url: "Culinary History Database"
       },
       {
-        title: "AI Literacy: Principles and Practices for Responsible AI Use",
-        author: "Stanford HAI",
+        title: "Nutritional Benefits of Pumpkin: A Comprehensive Review",
+        author: "Journal of Nutritional Science",
+        year: "2023",
+        type: "research",
+        url: "Scientific Database"
+      },
+      {
+        title: "Traditional Foods in American Culture",
+        author: "Food Anthropology Quarterly",
         year: "2023",
         type: "publication",
-        url: "Stanford Digital Repository"
-      },
-      {
-        title: "Understanding and Addressing AI Hallucination",
-        author: "Anthropic Research",
-        year: "2023",
-        type: "article",
-        url: "Anthropic Blog"
+        url: "Cultural Studies Archive"
       }
     ]
   };
