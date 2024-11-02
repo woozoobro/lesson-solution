@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import kgSample from "@/public/kg-sample.png";
+import kgSample from "@/public/kg-sample.svg";
 
 // Modal Component
 interface ModalProps {
@@ -22,27 +22,74 @@ interface ModalProps {
 }
 
 const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+      // Simulate API delay
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+    <div
+      className={`fixed inset-0 bg-black z-50 transition-all duration-300 ease-in-out
+        ${isOpen ? 'bg-opacity-50 backdrop-blur-sm' : 'bg-opacity-0 backdrop-blur-none pointer-events-none'}`}
+      onClick={onClose}
+    >
+      <div
+        className={`fixed inset-0 flex items-center justify-center p-4 transition-all duration-300
+          ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          className={`bg-white rounded-lg max-w-6xl w-full relative transform transition-all duration-300
+            ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
         >
-          <X className="w-6 h-6" />
-        </button>
-        <div className="p-4">
-          <h3 className="text-xl font-semibold mb-4">Supporting Evidence</h3>
-          <div className="relative w-full aspect-video">
-            <Image
-              src={kgSample}
-              alt="Knowledge Graph Evidence"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
-            />
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 
+                     transition-colors duration-200 z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div className="p-4">
+            <h3 className="text-xl font-semibold mb-4">Supporting Evidence</h3>
+            <div className="relative w-full aspect-video bg-gray-50 rounded-lg overflow-hidden">
+              {isLoading ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="w-full max-w-md mx-auto p-4">
+                    {/* Loading skeleton animation */}
+                    <div className="animate-pulse space-y-4">
+                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                      <div className="flex justify-center mt-8">
+                        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                      </div>
+                      <div className="text-center text-sm text-gray-500 mt-2">
+                        Loading knowledge graph...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="transition-opacity duration-300 ease-in-out">
+                  <Image
+                    src={kgSample}
+                    alt="Knowledge Graph Evidence"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -65,6 +112,7 @@ interface Source {
   url?: string;
 }
 
+
 export default function ChatView() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,52 +129,80 @@ export default function ChatView() {
     id: "2",
     role: "assistant",
     content: `Pumpkin pie, a beloved autumn tradition, has a rich history dating back to early American colonists. Here's what makes it special:
-
-Historical Background:
-- Native Americans first introduced pumpkins to European settlers
-- The first recorded pumpkin pie recipe appeared in an English cookbook in 1675
-- It became a Thanksgiving staple in the late 1700s
-
-Health Benefits of Pumpkin Pie:
-1. Nutritional Value
-- Rich in beta-carotene and vitamin A
-- Good source of fiber and potassium
-- Contains antioxidants that support eye health
-
-2. Wellness Benefits
-- Pumpkin's high fiber content aids digestion
-- Contains compounds that may boost immune function
-- Natural spices like cinnamon help regulate blood sugar
-
-Modern Significance:
-- Symbol of harvest celebrations and fall festivities
-- Popular seasonal offering in cafes and bakeries
-- Represents family traditions and cultural heritage
-
-While enjoying this seasonal treat, remember that traditional recipes can be adapted for various dietary preferences while maintaining its cherished autumn flavor profile.`,
+  
+  Historical Background:
+  - Native Americans first introduced pumpkins to European settlers as a vital food source [1]
+  - The first recorded pumpkin pie recipe appeared in an English cookbook in 1675, called 'Gentlewoman's Companion' [1]
+  - It became a Thanksgiving staple in the late 1700s after being popularized by American colonists [1,3]
+  
+  Health Benefits of Pumpkin Pie:
+  1. Nutritional Value
+  - Rich in beta-carotene and vitamin A, providing over 100% of daily recommended intake [2]
+  - Good source of fiber (3g per slice) and potassium (250mg per serving) [2]
+  - Contains antioxidants like lutein and zeaxanthin that support eye health [2,4]
+  
+  2. Wellness Benefits
+  - Pumpkin's high fiber content aids digestion and promotes gut health [2,4]
+  - Contains compounds that may boost immune function, including vitamin C and zinc [4]
+  - Natural spices like cinnamon help regulate blood sugar and provide anti-inflammatory benefits [5]
+  
+  Modern Significance:
+  - Symbol of harvest celebrations and fall festivities across North America [3]
+  - Popular seasonal offering in cafes and bakeries, with over $130 million in annual sales [6]
+  - Represents family traditions and cultural heritage in American cuisine [3]
+  
+  While enjoying this seasonal treat, remember that traditional recipes can be adapted for various dietary preferences while maintaining its cherished autumn flavor profile [7].`,
     sources: [
       {
         title: "The History of Pumpkin Pie in North America",
         author: "Culinary History Institute",
         year: "2022",
         type: "research",
-        url: "Culinary History Database",
+        url: "Culinary History Database"
       },
       {
         title: "Nutritional Benefits of Pumpkin: A Comprehensive Review",
         author: "Journal of Nutritional Science",
         year: "2023",
         type: "research",
-        url: "Scientific Database",
+        url: "Scientific Database"
       },
       {
         title: "Traditional Foods in American Culture",
         author: "Food Anthropology Quarterly",
         year: "2023",
         type: "publication",
-        url: "Cultural Studies Archive",
+        url: "Cultural Studies Archive"
       },
-    ],
+      {
+        title: "Health Benefits of Pumpkin and Its Bioactive Compounds",
+        author: "Nutrition Research Review",
+        year: "2023",
+        type: "research",
+        url: "Medical Research Database"
+      },
+      {
+        title: "Therapeutic Properties of Culinary Spices",
+        author: "International Journal of Nutrition",
+        year: "2023",
+        type: "research",
+        url: "Nutrition Science Portal"
+      },
+      {
+        title: "Market Analysis: Seasonal Dessert Trends",
+        author: "Food Industry Research Group",
+        year: "2023",
+        type: "research",
+        url: "Industry Reports Database"
+      },
+      {
+        title: "Modern Adaptations of Traditional Recipes",
+        author: "Culinary Arts Journal",
+        year: "2023",
+        type: "article",
+        url: "Culinary Database"
+      }
+    ]
   };
 
   const scrollToBottom = () => {
@@ -155,7 +231,7 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
     setTimeout(() => {
       setMessages((prev) => [...prev, presetAnswer]);
       setIsLoading(false);
-      setHasSubmitted(true); 
+      setHasSubmitted(true);
     }, 2000);
   };
 
@@ -208,8 +284,8 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
               )}
               <div
                 className={`max-w-[80%] rounded-2xl p-4 ${message.role === "user"
-                    ? "bg-blue-600 text-white"
-                    : "bg-white border border-gray-200"
+                  ? "bg-blue-600 text-white"
+                  : "bg-white border border-gray-200"
                   }`}
               >
                 <div className="prose prose-sm">
