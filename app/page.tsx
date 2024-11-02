@@ -214,7 +214,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white py-36 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-600/20 to-blue-900/40"></div>
         <div className="container mx-auto px-4 relative">
@@ -261,7 +261,7 @@ export default function LandingPage() {
       {/* Features Section */}
       <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative">
         <div className="absolute inset-0 bg-[url('/dot-pattern.svg')] opacity-5"></div>
-        <div className="container mx-auto px-4 relative">
+        <div className="container mx-auto px-2 relative">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
               Comprehensive Learning Resources
@@ -270,10 +270,10 @@ export default function LandingPage() {
               Everything you need to become confident in using AI tools
             </p>
           </AnimatedSection>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {features.map((feature, index) => (
               <AnimatedGridItem key={index} index={index}>
-                <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:border-blue-100 group">
+                <div className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:border-blue-100 group">
                   <div className="bg-blue-50 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
                     <feature.icon className="w-8 h-8 text-blue-600" />
                   </div>
