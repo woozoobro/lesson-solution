@@ -8,9 +8,13 @@ import {
   Star,
   Brain,
   Target,
+  Search,
+  CheckCircle2,
+  BookOpen,
   ArrowRight,
   Users,
   MessageCircle,
+  Lightbulb,
 } from "lucide-react";
 
 const MarqueePartners = () => {
@@ -18,61 +22,86 @@ const MarqueePartners = () => {
     {
       name: "OpenAI",
       type: "Technology Partner",
+      emoji: "🤖",
+      gradientFrom: "from-green-50",
+      gradientTo: "to-emerald-50",
+      iconColor: "text-green-600"
     },
     {
       name: "Anthropic",
       type: "Research Partner",
+      emoji: "🧠",
+      gradientFrom: "from-purple-50",
+      gradientTo: "to-indigo-50",
+      iconColor: "text-purple-600"
     },
     {
       name: "U.S. Embassy",
       type: "Government Partner",
+      emoji: "🏛️",
+      gradientFrom: "from-blue-50",
+      gradientTo: "to-cyan-50",
+      iconColor: "text-blue-600"
     },
     {
-      name: "MIT",
-      type: "Academic Partner",
-    },
-    {
-      name: "Stanford",
-      type: "Research Partner",
-    },
-    {
-      name: "Google AI",
+      name: "OpenAI",
       type: "Technology Partner",
+      emoji: "🤖",
+      gradientFrom: "from-green-50",
+      gradientTo: "to-emerald-50",
+      iconColor: "text-green-600"
+    },
+    {
+      name: "Anthropic",
+      type: "Research Partner",
+      emoji: "🧠",
+      gradientFrom: "from-purple-50",
+      gradientTo: "to-indigo-50",
+      iconColor: "text-purple-600"
+    },
+    {
+      name: "U.S. Embassy",
+      type: "Government Partner",
+      emoji: "🏛️",
+      gradientFrom: "from-blue-50",
+      gradientTo: "to-cyan-50",
+      iconColor: "text-blue-600"
     },
   ];
-
-  // 파트너 목록을 두 배로 복제하여 무한 스크롤 효과 생성
-  // const duplicatedPartners = [...partners, ...partners];
 
   return (
     <div className="w-full overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
       <div className="relative flex">
-        {/* 첫 번째 슬라이드 그룹 */}
         <div className="flex animate-marquee whitespace-nowrap">
           {partners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
-              <div className="bg-white rounded-lg shadow-md p-6 w-72">
-                <div className="text-sm font-semibold text-blue-600 mb-2">
-                  {partner.type}
-                </div>
-                <div className="text-xl font-bold text-gray-900">
-                  {partner.name}
+              <div className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}>
+                <div className={`flex flex-col items-center text-center`}>
+                  <span className="text-5xl mb-3">{partner.emoji}</span>
+                  <div className="text-sm font-semibold text-blue-600 mb-2">
+                    {partner.type}
+                  </div>
+                  <div className="text-xl font-bold text-gray-900">
+                    {partner.name}
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* 두 번째 슬라이드 그룹 (무한 스크롤을 위한 복제) */}
+        
         <div className="flex animate-marquee2 whitespace-nowrap">
           {partners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
-              <div className="bg-white rounded-lg shadow-md p-6 w-72">
-                <div className="text-sm font-semibold text-blue-600 mb-2">
-                  {partner.type}
-                </div>
-                <div className="text-xl font-bold text-gray-900">
-                  {partner.name}
+              <div className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}>
+                <div className={`flex flex-col items-center text-center`}>
+                  <span className="text-5xl mb-3">{partner.emoji}</span>
+                  <div className="text-sm font-semibold text-blue-600 mb-2">
+                    {partner.type}
+                  </div>
+                  <div className="text-xl font-bold text-gray-900">
+                    {partner.name}
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,51 +164,47 @@ const AnimatedGridItem = ({ children, index }: AnimatedGridItemProps) => {
 export default function LandingPage() {
   const features = [
     {
-      icon: Shield,
-      title: "XAI Solutions",
-      description:
-        "Transparent and explainable AI systems that help users understand how decisions are made",
+      icon: BookOpen,
+      title: "AI Literacy Guide",
+      description: "Comprehensive educational resources to understand AI capabilities and limitations",
     },
     {
-      icon: Database,
-      title: "Knowledge Graphs",
-      description:
-        "Advanced reasoning paths for better content verification and fact-checking",
+      icon: Search,
+      title: "Source Verification",
+      description: "Learn how to verify AI-generated content and identify reliable sources",
     },
     {
       icon: Brain,
-      title: "RAG Systems",
-      description:
-        "Enhanced content generation with reliable source verification",
+      title: "Best Practices",
+      description: "Guidelines for effective prompting and content generation",
     },
     {
-      icon: Target,
-      title: "Benchmarking",
-      description:
-        "Clear metrics and standards for AI trustworthiness evaluation",
+      icon: Shield,
+      title: "Safety First",
+      description: "Understanding AI safety and ethical considerations",
     },
   ];
 
   const benefits = [
     {
-      icon: Check,
-      title: "Verified Content",
-      description: "Ensure accuracy and reliability of AI-generated content",
+      icon: CheckCircle2,
+      title: "Better Understanding",
+      description: "Gain confidence in using AI tools effectively",
     },
     {
-      icon: Star,
-      title: "Increased Confidence",
-      description: "Build trust in AI systems through transparency",
+      icon: Lightbulb,
+      title: "Informed Decisions",
+      description: "Make better choices about AI-generated content",
     },
     {
       icon: Users,
-      title: "Better Adoption",
-      description: "Enable responsible AI integration across industries",
+      title: "Community Learning",
+      description: "Learn from shared experiences and best practices",
     },
     {
       icon: MessageCircle,
-      title: "Clear Communication",
-      description: "Understand AI capabilities and limitations",
+      title: "Practical Guidance",
+      description: "Real-world applications and use cases",
     },
   ];
 
@@ -192,18 +217,17 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 relative">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6">
-              Trust Your AI-Generated Content
+              Navigate AI With Confidence
             </h1>
             <p className="text-xl mb-8 text-blue-100">
-              Comprehensive verification tools and transparency frameworks for
-              confident AI adoption
+              Your guide to understanding, verifying, and effectively using AI-generated content
             </p>
             <div className="flex justify-center gap-4">
               <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                Get Started
+                Start Learning
               </button>
               <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                Learn More
+                View Guidelines
               </button>
             </div>
           </AnimatedSection>
@@ -216,11 +240,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 mb-0 relative">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
-              Trusted by Leading Organizations
+              Supported By Leading Organizations
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Partnering with global institutions to advance AI transparency and
-              trust
+              Working together to improve AI literacy and digital citizenship
             </p>
           </AnimatedSection>
         </div>
@@ -233,11 +256,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 relative">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
-              Advanced Verification Tools
+              Comprehensive Learning Resources
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Comprehensive suite of tools designed to verify and validate
-              AI-generated content
+              Everything you need to become confident in using AI tools
             </p>
           </AnimatedSection>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -247,9 +269,7 @@ export default function LandingPage() {
                   <div className="bg-blue-50 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
                     <feature.icon className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    {feature.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                   <p className="text-gray-600">{feature.description}</p>
                 </div>
               </AnimatedGridItem>
@@ -263,9 +283,9 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/10 to-transparent"></div>
         <div className="container mx-auto px-4 relative">
           <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Why Choose TrustAI</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Learn With Us</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Empower your organization with reliable AI content verification
+              Empower yourself with knowledge and practical skills for the AI age
             </p>
           </AnimatedSection>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -275,9 +295,7 @@ export default function LandingPage() {
                   <div className="inline-block p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl mb-6 group-hover:shadow-lg transition-all duration-300">
                     <benefit.icon className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">
-                    {benefit.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
                   <p className="text-gray-600 px-4">{benefit.description}</p>
                 </div>
               </AnimatedGridItem>
@@ -293,14 +311,13 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 relative">
           <AnimatedSection className="max-w-3xl mx-auto text-center text-white">
             <h2 className="text-4xl font-bold mb-6">
-              Ready to Trust Your AI Content?
+              Ready to Master AI Tools?
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join organizations worldwide in adopting transparent and reliable
-              AI systems
+              Join our community of informed AI users and build your confidence in the digital age
             </p>
             <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 inline-flex items-center shadow-xl hover:shadow-2xl">
-              Get Started Today
+              Start Your Journey
               <ArrowRight className="ml-2 w-5 h-5" />
             </button>
           </AnimatedSection>
