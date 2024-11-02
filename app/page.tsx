@@ -1,461 +1,325 @@
 "use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Check, X } from "lucide-react";
-import PocoLetter from "./components/PocoLetter";
-import FloatingCTA from "./components/FloatingCTA";
-import Image from "next/image";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  Shield,
+  Database,
+  Check,
+  Star,
+  Brain,
+  Target,
+  ArrowRight,
+  Users,
+  MessageCircle,
+} from "lucide-react";
 
-interface Testimonial {
-  name: string;
-  role: string;
-  content: string;
-}
-interface PricingFeature {
-  included: boolean;
-  text: string;
-}
+const MarqueePartners = () => {
+  const partners = [
+    {
+      name: "U.S. Embassy",
+      type: "Government Partner",
+    },
+    {
+      name: "OpenAI",
+      type: "Technology Partner",
+    },
+    {
+      name: "Anthropic",
+      type: "Research Partner",
+    },
+    {
+      name: "MIT",
+      type: "Academic Partner",
+    },
+    {
+      name: "Stanford",
+      type: "Research Partner",
+    },
+    {
+      name: "Google AI",
+      type: "Technology Partner",
+    },
+  ];
 
-interface PricingCardProps {
-  plan: string;
-  price: string;
-  features: PricingFeature[];
-}
-
-const TestimonialCard = ({ name, role, content }: Testimonial) => (
-  <div className="bg-white p-6 rounded-lg shadow-lg">
-    <p className="text-gray-600 mb-4">{content}</p>
-    <p className="font-semibold">{name}</p>
-    <p className="text-sm text-gray-500">{role}</p>
-  </div>
-);
-
-const PricingCard = ({ plan, price, features }: PricingCardProps) => (
-  <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-    <h3 className="text-2xl font-bold mb-2">{plan}</h3>
-    <p className="text-4xl font-bold text-indigo-600 mb-6">
-      ₩{price}
-      <span className="text-sm text-gray-500">/월</span>
-    </p>
-    <ul className="text-left mb-6">
-      {features.map((feature, index) => (
-        <li key={index} className="flex items-center mb-2">
-          {feature.included ? (
-            <Check className="text-green-500 mr-2" />
-          ) : (
-            <X className="text-red-500 mr-2" />
-          )}
-          <span>{feature.text}</span>
-        </li>
-      ))}
-    </ul>
-    <button className="bg-indigo-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition duration-300 w-full">
-      선택하기
-    </button>
-  </div>
-);
-
-export default function EnhancedLandingPage() {
-  const [activeTab, setActiveTab] = useState("feature1");
+  // 파트너 목록을 두 배로 복제하여 무한 스크롤 효과 생성
+  const duplicatedPartners = [...partners, ...partners];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <header className="container mx-auto px-4 py-8">
-        <nav className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-indigo-600">Poco</h1>
-          <div className="space-x-4">
-            <a href="#features" className="text-gray-600 hover:text-teal-600">
-              기능
-            </a>
-            <a href="#pricing" className="text-gray-600 hover:text-indigo-600">
-              요금제
-            </a>
-            <button className="bg-indigo-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition duration-300">
-              무료 체험 시작
-            </button>
-          </div>
-        </nav>
-      </header>
-
-      <main className="container mx-auto px-4">
-        <section className="text-center py-20">
-          <motion.h2
-            className="text-5xl font-extrabold text-gray-900 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            당신의 레슨, Poco가 책임집니다.
-          </motion.h2>
-          <motion.p
-            className="text-xl text-gray-600 mb-3 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            공간의 제약 없이, 당신의 열정을 전해요.
-          </motion.p>
-          <motion.p
-            className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            수강생 관리부터 출석, 진도까지 모든 것을 간편하게 지원합니다.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <button
-              className="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-lg flex items-center mx-auto"
-              onClick={() => console.log("Clicked")}
-            >
-              레슨 관리 시작하기
-              <ChevronRight className="ml-2" />
-            </button>
-          </motion.div>
-        </section>
-
-        <PocoLetter />
-
-        <section id="features" className="py-20">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Poco의 주요 기능
-          </h3>
-          <div className="flex justify-center mb-8">
-            <div className="bg-white rounded-full p-1 shadow-md">
-              {["수강관리", "일정관리", "결제시스템"].map((tab, index) => (
-                <button
-                  key={index}
-                  className={`px-6 py-2 rounded-full ${
-                    activeTab === `feature${index + 1}`
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-600"
-                  }`}
-                  onClick={() => setActiveTab(`feature${index + 1}`)}
-                >
-                  {tab}
-                </button>
-              ))}
+    <div className="w-full overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
+      <div className="relative flex">
+        {/* 첫 번째 슬라이드 그룹 */}
+        <div className="flex animate-marquee whitespace-nowrap">
+          {partners.map((partner, index) => (
+            <div key={index} className="mx-8 flex items-center justify-center">
+              <div className="bg-white rounded-lg shadow-md p-6 w-72">
+                <div className="text-sm font-semibold text-blue-600 mb-2">
+                  {partner.type}
+                </div>
+                <div className="text-xl font-bold text-gray-900">
+                  {partner.name}
+                </div>
+              </div>
             </div>
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {activeTab === "feature1" && (
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <Image
-                    src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                    alt="수강관리 기능"
-                    width={700}
-                    height={500}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <div>
-                    <h4 className="text-2xl font-bold mb-4">
-                      직관적인 수강 관리
-                    </h4>
-                    <p className="text-gray-600 mb-4">
-                      수강생 정보, 출석, 진도 등을 한눈에 파악하고 관리할 수
-                      있습니다. 맞춤형 대시보드로 효율적인 레슨 운영을
-                      지원합니다.
-                    </p>
-                    <ul className="space-y-2">
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>실시간 출석 체크</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>개인별 진도 관리</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>수강생 피드백 시스템</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-              {activeTab === "feature2" && (
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <Image
-                    src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1468&q=80"
-                    alt="일정관리 기능"
-                    width={700}
-                    height={500}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <div>
-                    <h4 className="text-2xl font-bold mb-4">
-                      스마트 일정 관리
-                    </h4>
-                    <p className="text-gray-600 mb-4">
-                      AI 기반 일정 최적화로 여러 공간에서의 레슨을 효율적으로
-                      관리합니다. 중복 예약 방지와 자동 알림 기능으로 일정
-                      관리가 더욱 편리해집니다.
-                    </p>
-                    <ul className="space-y-2">
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>AI 기반 일정 최적화</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>다중 공간 관리</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>자동 알림 시스템</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-              {activeTab === "feature3" && (
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <Image
-                    src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                    alt="결제시스템 기능"
-                    width={700}
-                    height={500}
-                    className="rounded-lg shadow-lg"
-                  />
-                  <div>
-                    <h4 className="text-2xl font-bold mb-4">
-                      안전한 결제 시스템
-                    </h4>
-                    <p className="text-gray-600 mb-4">
-                      다양한 결제 옵션과 함께 안전하고 편리한 결제 시스템을
-                      제공합니다. 자동 정산과 세금 계산서 발행으로 회계 관리도
-                      간편해집니다.
-                    </p>
-                    <ul className="space-y-2">
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>다양한 결제 옵션</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>자동 정산 시스템</span>
-                      </li>
-                      <li className="flex items-center">
-                        <Check className="text-green-500 mr-2" />
-                        <span>세금 계산서 자동 발행</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </section>
+          ))}
+        </div>
 
-        <section className="py-20">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            고객 후기
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <TestimonialCard
-              name="우송원"
-              role="피겨 강사"
-              content="Poco 덕분에 여러 장소에서의 레슨 관리가 훨씬 수월해졌어요. 특히 자동 알림 기능이 큰 도움이 됩니다."
-            />
-            <TestimonialCard
-              name="황승호"
-              role="영어회화 강사"
-              content="수강생 관리와 결제가 한 번에 해결되니 정말 편리해요. 덕분에 레슨에 더 집중할 수 있게 되었습니다."
-            />
-            <TestimonialCard
-              name="김소연"
-              role="요가 강사"
-              content="다양한 공간에서 진행하는 클래스를 효율적으로 관리할 수 있어 정말 좋아요. 강추합니다!"
-            />
-          </div>
-        </section>
-
-        <section id="pricing" className="py-20">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            합리적인 요금제
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <PricingCard
-              plan="스타터"
-              price="30,000"
-              features={[
-                { included: true, text: "기본 수강 관리" },
-                { included: true, text: "간단한 일정 관리" },
-                { included: true, text: "기본 결제 시스템" },
-                { included: false, text: "고급 분석 기능" },
-                { included: false, text: "다중 공간 관리" },
-              ]}
-            />
-            <PricingCard
-              plan="프로"
-              price="50,000"
-              features={[
-                { included: true, text: "고급 수강 관리" },
-                { included: true, text: "AI 기반 일정 최적화" },
-                { included: true, text: "고급 결제 시스템" },
-                { included: true, text: "기본 분석 기능" },
-                { included: true, text: "다중 공간 관리" },
-              ]}
-            />
-            <PricingCard
-              plan="엔터프라이즈"
-              price="문의"
-              features={[
-                { included: true, text: "맞춤형 수강 관리" },
-                { included: true, text: "고급 AI 일정 관리" },
-                { included: true, text: "맞춤형 결제 시스템" },
-                { included: true, text: "고급 분석 및 리포팅" },
-                { included: true, text: "무제한 공간 관리" },
-              ]}
-            />
-          </div>
-        </section>
-
-        <section className="py-20 bg-indigo-50 rounded-lg">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8">
-              자주 묻는 질문
-            </h3>
-            <div className="space-y-6">
-              {[
-                {
-                  question: "무료 체험 기간은 얼마인가요?",
-                  answer:
-                    "Poco는 30일 무료 체험을 제공합니다. 이 기간 동안 모든 기능을 제한 없이 사용해 보실 수 있습니다.",
-                },
-                {
-                  question: "계약 기간은 어떻게 되나요?",
-                  answer:
-                    "월간 또는 연간 구독 모두 가능합니다. 연간 구독 시 20% 할인된 가격으로 이용하실 수 있습니다.",
-                },
-                {
-                  question: "기술 지원은 어떻게 받을 수 있나요?",
-                  answer:
-                    "모든 요금제에 이메일 지원이 포함되어 있으며, 프로 플랜 이상에서는 실시간 채팅 지원도 제공됩니다.",
-                },
-                {
-                  question: "데이터 보안은 어떻게 관리되나요?",
-                  answer:
-                    "Poco는 최신 암호화 기술을 사용하여 모든 데이터를 안전하게 보호합니다. 또한 정기적인 보안 감사를 통해 시스템의 안전성을 지속적으로 검증하고 있습니다.",
-                },
-              ].map((faq, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-lg shadow-md text-left"
-                >
-                  <h4 className="text-xl font-semibold mb-2">{faq.question}</h4>
-                  <p className="text-gray-600">{faq.answer}</p>
+        {/* 두 번째 슬라이드 그룹 (무한 스크롤을 위한 복제) */}
+        <div className="flex animate-marquee2 whitespace-nowrap">
+          {partners.map((partner, index) => (
+            <div key={index} className="mx-8 flex items-center justify-center">
+              <div className="bg-white rounded-lg shadow-md p-6 w-72">
+                <div className="text-sm font-semibold text-blue-600 mb-2">
+                  {partner.type}
                 </div>
-              ))}
+                <div className="text-xl font-bold text-gray-900">
+                  {partner.name}
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-        <section className="py-20">
-          <div className="bg-indigo-600 rounded-lg p-12 text-center text-white">
-            <h3 className="text-3xl font-bold mb-6">
-              지금 바로 Poco를 경험해보세요
-            </h3>
-            <p className="text-xl mb-8">
-              30일 무료 체험으로 Poco의 모든 기능을 직접 체험해보세요.
-              <br />
-              설정이 필요 없으며, 신용카드 정보도 필요하지 않습니다.
+// 애니메이션 섹션 컴포넌트
+const AnimatedSection = ({ children, delay = 0, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.7, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+// 그리드 아이템 애니메이션 컴포넌트
+const AnimatedGridItem = ({ children, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default function LandingPage() {
+  const features = [
+    {
+      icon: Shield,
+      title: "XAI Solutions",
+      description:
+        "Transparent and explainable AI systems that help users understand how decisions are made",
+    },
+    {
+      icon: Database,
+      title: "Knowledge Graphs",
+      description:
+        "Advanced reasoning paths for better content verification and fact-checking",
+    },
+    {
+      icon: Brain,
+      title: "RAG Systems",
+      description:
+        "Enhanced content generation with reliable source verification",
+    },
+    {
+      icon: Target,
+      title: "Benchmarking",
+      description:
+        "Clear metrics and standards for AI trustworthiness evaluation",
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: Check,
+      title: "Verified Content",
+      description: "Ensure accuracy and reliability of AI-generated content",
+    },
+    {
+      icon: Star,
+      title: "Increased Confidence",
+      description: "Build trust in AI systems through transparency",
+    },
+    {
+      icon: Users,
+      title: "Better Adoption",
+      description: "Enable responsible AI integration across industries",
+    },
+    {
+      icon: MessageCircle,
+      title: "Clear Communication",
+      description: "Understand AI capabilities and limitations",
+    },
+  ];
+
+  const metrics = [
+    { value: "99.9%", label: "Accuracy Rate" },
+    { value: "500+", label: "Active Users" },
+    { value: "50%", label: "Error Reduction" },
+    { value: "24/7", label: "Monitoring" },
+  ];
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 text-white py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-600/20 to-blue-900/40"></div>
+        <div className="container mx-auto px-4 relative">
+          <AnimatedSection className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl font-bold mb-6">
+              Trust Your AI-Generated Content
+            </h1>
+            <p className="text-xl mb-8 text-blue-100">
+              Comprehensive verification tools and transparency frameworks for
+              confident AI adoption
             </p>
-            <button className="bg-white text-indigo-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg">
-              무료 체험 시작하기
-            </button>
-          </div>
-        </section>
-      </main>
+            <div className="flex justify-center gap-4">
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                Get Started
+              </button>
+              <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                Learn More
+              </button>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
-      <FloatingCTA />
+      {/* Partners Section */}
+      <section className="relative py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-white/50"></div>
+        <div className="container mx-auto px-4 mb-0 relative">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">
+              Trusted by Leading Organizations
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Partnering with global institutions to advance AI transparency and
+              trust
+            </p>
+          </AnimatedSection>
+        </div>
+        <MarqueePartners />
+      </section>
 
-      <footer className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Poco</h4>
-              <p className="text-gray-600">
-                당신의 레슨 비즈니스를 위한 최고의 파트너
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">제품</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    기능
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    요금제
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    고객 후기
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">회사</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    회사 소개
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    블로그
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    채용 정보
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">고객 지원</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    문의하기
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    도움말 센터
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-indigo-600">
-                    개인정보처리방침
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 text-center">
-            <p className="text-gray-600">© 2024 Poco. All rights reserved.</p>
+      {/* Metrics Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/5 to-transparent"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {metrics.map((metric, index) => (
+              <AnimatedGridItem key={index} index={index}>
+                <div className="text-center bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                    {metric.value}
+                  </div>
+                  <div className="text-gray-600 font-medium">
+                    {metric.label}
+                  </div>
+                </div>
+              </AnimatedGridItem>
+            ))}
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative">
+        <div className="absolute inset-0 bg-[url('/dot-pattern.svg')] opacity-5"></div>
+        <div className="container mx-auto px-4 relative">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">
+              Advanced Verification Tools
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive suite of tools designed to verify and validate
+              AI-generated content
+            </p>
+          </AnimatedSection>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <AnimatedGridItem key={index} index={index}>
+                <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:border-blue-100 group">
+                  <div className="bg-blue-50 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
+                    <feature.icon className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              </AnimatedGridItem>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-24 bg-white relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/10 to-transparent"></div>
+        <div className="container mx-auto px-4 relative">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Why Choose TrustAI</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Empower your organization with reliable AI content verification
+            </p>
+          </AnimatedSection>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <AnimatedGridItem key={index} index={index}>
+                <div className="text-center group hover:translate-y-[-4px] transition-all duration-300">
+                  <div className="inline-block p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl mb-6 group-hover:shadow-lg transition-all duration-300">
+                    <benefit.icon className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-600 px-4">{benefit.description}</p>
+                </div>
+              </AnimatedGridItem>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 relative">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent"></div>
+        <div className="container mx-auto px-4 relative">
+          <AnimatedSection className="max-w-3xl mx-auto text-center text-white">
+            <h2 className="text-4xl font-bold mb-6">
+              Ready to Trust Your AI Content?
+            </h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Join organizations worldwide in adopting transparent and reliable
+              AI systems
+            </p>
+            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 inline-flex items-center shadow-xl hover:shadow-2xl">
+              Get Started Today
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </button>
+          </AnimatedSection>
+        </div>
+      </section>
     </div>
   );
 }
