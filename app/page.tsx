@@ -12,6 +12,7 @@ import {
   MessageCircle,
   Lightbulb,
 } from "lucide-react";
+import Link from "next/link";
 
 const MarqueePartners = () => {
   const partners = [
@@ -85,7 +86,7 @@ const MarqueePartners = () => {
             </div>
           ))}
         </div>
-        
+
         <div className="flex animate-marquee2 whitespace-nowrap">
           {partners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
@@ -219,9 +220,11 @@ export default function LandingPage() {
               Your guide to understanding, verifying, and effectively using AI-generated content
             </p>
             <div className="flex justify-center gap-4">
-              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                Start Learning
-              </button>
+              <Link href="/chat">
+                <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                  Try out
+                </button>
+              </Link>
               <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
                 View Guidelines
               </button>
