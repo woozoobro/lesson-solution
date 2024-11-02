@@ -1,7 +1,45 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, User, Bot, ArrowUp, Loader2, BookOpen, ArrowLeft } from 'lucide-react';
+import { MessageCircle, User, Bot, ArrowUp, Loader2, BookOpen, Image as ImageIcon, X, ArrowLeft } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import kgSample from "@/public/kg-sample.jpg";
+
+// Modal Component
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg max-w-4xl w-full relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <div className="p-6">
+          <h3 className="text-xl font-semibold mb-4">Supporting Evidence</h3>
+          <div className="relative w-full aspect-video">
+            <Image
+              src={kgSample}
+              alt="Knowledge Graph Evidence"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 interface Message {
   id: string;
@@ -25,6 +63,8 @@ export default function ChatView() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const presetAnswer: Message = {
     id: '2',
@@ -164,6 +204,15 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
                     </p>
                   ))}
                 </div>
+                {message.role === 'assistant' && (
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="mt-4 flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <ImageIcon className="w-4 h-4" />
+                    View Evidence
+                  </button>
+                )}
                 {message.sources && renderSources(message.sources)}
               </div>
               {message.role === 'user' && (
@@ -213,6 +262,7 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
           </div>
         </form>
       </div>
+      <EvidenceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

@@ -22,7 +22,7 @@ const MarqueePartners = () => {
       emoji: "🤖",
       gradientFrom: "from-green-50",
       gradientTo: "to-emerald-50",
-      iconColor: "text-green-600"
+      iconColor: "text-green-600",
     },
     {
       name: "Anthropic",
@@ -30,7 +30,7 @@ const MarqueePartners = () => {
       emoji: "🧠",
       gradientFrom: "from-purple-50",
       gradientTo: "to-indigo-50",
-      iconColor: "text-purple-600"
+      iconColor: "text-purple-600",
     },
     {
       name: "U.S. Embassy",
@@ -38,7 +38,7 @@ const MarqueePartners = () => {
       emoji: "🏛️",
       gradientFrom: "from-blue-50",
       gradientTo: "to-cyan-50",
-      iconColor: "text-blue-600"
+      iconColor: "text-blue-600",
     },
     {
       name: "OpenAI",
@@ -46,7 +46,7 @@ const MarqueePartners = () => {
       emoji: "🤖",
       gradientFrom: "from-green-50",
       gradientTo: "to-emerald-50",
-      iconColor: "text-green-600"
+      iconColor: "text-green-600",
     },
     {
       name: "Anthropic",
@@ -54,7 +54,7 @@ const MarqueePartners = () => {
       emoji: "🧠",
       gradientFrom: "from-purple-50",
       gradientTo: "to-indigo-50",
-      iconColor: "text-purple-600"
+      iconColor: "text-purple-600",
     },
     {
       name: "U.S. Embassy",
@@ -62,7 +62,7 @@ const MarqueePartners = () => {
       emoji: "🏛️",
       gradientFrom: "from-blue-50",
       gradientTo: "to-cyan-50",
-      iconColor: "text-blue-600"
+      iconColor: "text-blue-600",
     },
   ];
 
@@ -72,7 +72,9 @@ const MarqueePartners = () => {
         <div className="flex animate-marquee whitespace-nowrap">
           {partners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
-              <div className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}>
+              <div
+                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}
+              >
                 <div className={`flex flex-col items-center text-center`}>
                   <span className="text-5xl mb-3">{partner.emoji}</span>
                   <div className="text-sm font-semibold text-blue-600 mb-2">
@@ -90,7 +92,9 @@ const MarqueePartners = () => {
         <div className="flex animate-marquee2 whitespace-nowrap">
           {partners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
-              <div className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}>
+              <div
+                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}
+              >
                 <div className={`flex flex-col items-center text-center`}>
                   <span className="text-5xl mb-3">{partner.emoji}</span>
                   <div className="text-sm font-semibold text-blue-600 mb-2">
@@ -163,12 +167,14 @@ export default function LandingPage() {
     {
       icon: BookOpen,
       title: "AI Literacy Guide",
-      description: "Comprehensive educational resources to understand AI capabilities and limitations",
+      description:
+        "Comprehensive educational resources to understand AI capabilities and limitations",
     },
     {
       icon: Search,
       title: "Source Verification",
-      description: "Learn how to verify AI-generated content and identify reliable sources",
+      description:
+        "Learn how to verify AI-generated content and identify reliable sources",
     },
     {
       icon: Brain,
@@ -217,7 +223,8 @@ export default function LandingPage() {
               Navigate AI With Confidence
             </h1>
             <p className="text-xl mb-8 text-blue-100">
-              Your guide to understanding, verifying, and effectively using AI-generated content
+              Your guide to understanding, verifying, and effectively using
+              AI-generated content
             </p>
             <div className="flex justify-center gap-4">
               <Link href="/chat">
@@ -270,7 +277,9 @@ export default function LandingPage() {
                   <div className="bg-blue-50 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
                     <feature.icon className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {feature.title}
+                  </h3>
                   <p className="text-gray-600">{feature.description}</p>
                 </div>
               </AnimatedGridItem>
@@ -286,7 +295,8 @@ export default function LandingPage() {
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Why Learn With Us</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Empower yourself with knowledge and practical skills for the AI age
+              Empower yourself with knowledge and practical skills for the AI
+              age
             </p>
           </AnimatedSection>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -296,7 +306,9 @@ export default function LandingPage() {
                   <div className="inline-block p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl mb-6 group-hover:shadow-lg transition-all duration-300">
                     <benefit.icon className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {benefit.title}
+                  </h3>
                   <p className="text-gray-600 px-4">{benefit.description}</p>
                 </div>
               </AnimatedGridItem>
@@ -315,12 +327,15 @@ export default function LandingPage() {
               Ready to Master AI Tools?
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join our community of informed AI users and build your confidence in the digital age
+              Join our community of informed AI users and build your confidence
+              in the digital age
             </p>
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 inline-flex items-center shadow-xl hover:shadow-2xl">
-              Start Your Journey
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </button>
+            <Link href="/chat">
+              <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 inline-flex items-center shadow-xl hover:shadow-2xl">
+                Start Your Journey
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </button>
+            </Link>
           </AnimatedSection>
         </div>
       </section>
