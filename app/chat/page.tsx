@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, User, Bot, ArrowUp, Loader2, BookOpen, Image as ImageIcon, X, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import kgSample from "@/public/kg-sample.jpg";
+import kgSample from "@/public/kg-sample.png";
 
 // Modal Component
 interface ModalProps {
