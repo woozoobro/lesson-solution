@@ -225,9 +225,11 @@ export default function LandingPage() {
                   Try out
                 </button>
               </Link>
-              <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                View Guidelines
-              </button>
+              <Link href="/guideline">
+                <button className="border border-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                  View Guidelines
+                </button>
+              </Link>
             </div>
           </AnimatedSection>
         </div>
