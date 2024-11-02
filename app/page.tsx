@@ -271,7 +271,7 @@ export default function LandingPage() {
       <section className="relative pt-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-white/50"></div>
         <div className="container mx-auto px-4 mb-0 relative">
-          <AnimatedSection className="text-center mb-16">
+          <AnimatedSection className="text-center mb-16" delay={0.3}>
             <h2 className="text-3xl font-bold mb-4">
               Supported By Leading Organizations
             </h2>

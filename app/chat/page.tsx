@@ -1,8 +1,18 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, User, Bot, ArrowUp, Loader2, BookOpen, Image as ImageIcon, X, ArrowLeft } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  MessageCircle,
+  User,
+  Bot,
+  ArrowUp,
+  Loader2,
+  BookOpen,
+  Image as ImageIcon,
+  X,
+  ArrowLeft,
+} from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import kgSample from "@/public/kg-sample.png";
 
 // Modal Component
@@ -23,7 +33,7 @@ const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         >
           <X className="w-6 h-6" />
         </button>
-        <div className="p-6">
+        <div className="p-4">
           <h3 className="text-xl font-semibold mb-4">Supporting Evidence</h3>
           <div className="relative w-full aspect-video">
             <Image
@@ -40,10 +50,9 @@ const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-
 interface Message {
   id: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   sources?: Source[];
 }
@@ -52,23 +61,24 @@ interface Source {
   title: string;
   author: string;
   year: string;
-  type: 'research' | 'publication' | 'article';
+  type: "research" | "publication" | "article";
   url?: string;
 }
 
 export default function ChatView() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [input, setInput] = useState("What's the history and health benefits of pumpkin pie for this fall season?");
+  const [input, setInput] = useState(
+    "What's the history and health benefits of pumpkin pie for this fall season?",
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   const presetAnswer: Message = {
-    id: '2',
-    role: 'assistant',
+    id: "2",
+    role: "assistant",
     content: `Pumpkin pie, a beloved autumn tradition, has a rich history dating back to early American colonists. Here's what makes it special:
 
 Historical Background:
@@ -99,23 +109,23 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
         author: "Culinary History Institute",
         year: "2022",
         type: "research",
-        url: "Culinary History Database"
+        url: "Culinary History Database",
       },
       {
         title: "Nutritional Benefits of Pumpkin: A Comprehensive Review",
         author: "Journal of Nutritional Science",
         year: "2023",
         type: "research",
-        url: "Scientific Database"
+        url: "Scientific Database",
       },
       {
         title: "Traditional Foods in American Culture",
         author: "Food Anthropology Quarterly",
         year: "2023",
         type: "publication",
-        url: "Cultural Studies Archive"
-      }
-    ]
+        url: "Cultural Studies Archive",
+      },
+    ],
   };
 
   const scrollToBottom = () => {
@@ -132,17 +142,17 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
 
     const newUserMessage: Message = {
       id: Date.now().toString(),
-      role: 'user',
-      content: input
+      role: "user",
+      content: input,
     };
 
-    setMessages(prev => [...prev, newUserMessage]);
-    setInput('');
+    setMessages((prev) => [...prev, newUserMessage]);
+    setInput("");
     setIsLoading(true);
 
     // Simulate API delay
     setTimeout(() => {
-      setMessages(prev => [...prev, presetAnswer]);
+      setMessages((prev) => [...prev, presetAnswer]);
       setIsLoading(false);
     }, 2000);
   };
@@ -154,7 +164,10 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
         Sources:
       </div>
       {sources.map((source, index) => (
-        <div key={index} className="text-sm text-gray-600 pl-6 hover:bg-gray-50 rounded p-2 transition-colors">
+        <div
+          key={index}
+          className="text-sm text-gray-600 pl-6 hover:bg-gray-50 rounded p-2 transition-colors"
+        >
           <div className="font-medium">{source.title}</div>
           <div className="text-gray-500">
             {source.author} • {source.year} • {source.type}
@@ -172,7 +185,7 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
           <MessageCircle className="w-6 h-6 text-blue-600" />
           <h1 className="text-xl font-semibold">AI Trust Guide Chat</h1>
         </div>
-        <button onClick={router.back} className='absolute left-4 top-4'>
+        <button onClick={router.back} className="absolute left-4 top-4">
           <ArrowLeft />
         </button>
       </div>
@@ -183,39 +196,44 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : 'justify-start'
+              className={`flex gap-4 ${message.role === "user" ? "justify-end" : "justify-start"
                 }`}
             >
-              {message.role === 'assistant' && (
+              {message.role === "assistant" && (
                 <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               )}
               <div
-                className={`max-w-[80%] rounded-2xl p-4 ${message.role === 'user'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-gray-200'
+                className={`max-w-[80%] rounded-2xl p-4 ${message.role === "user"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white border border-gray-200"
                   }`}
               >
                 <div className="prose prose-sm">
-                  {message.content.split('\n').map((line, i) => (
+                  {message.content.split("\n").map((line, i) => (
                     <p key={i} className="mb-2 last:mb-0">
                       {line}
                     </p>
                   ))}
                 </div>
-                {message.role === 'assistant' && (
+                {message.role === "assistant" && (
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="mt-4 flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                    className="group flex items-center gap-3 px-4 py-3 mt-4 
+                             bg-blue-600 hover:bg-blue-700 
+                             text-white font-medium rounded-lg
+                             shadow-sm hover:shadow-md
+                             transform hover:scale-[1.02]
+                             transition-all duration-200 ease-in-out"
                   >
-                    <ImageIcon className="w-4 h-4" />
-                    View Evidence
+                    <ImageIcon className="w-5 h-5" />
+                    <span>View Evidence</span>
                   </button>
                 )}
                 {message.sources && renderSources(message.sources)}
               </div>
-              {message.role === 'user' && (
+              {message.role === "user" && (
                 <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0">
                   <User className="w-5 h-5 text-white" />
                 </div>
@@ -262,7 +280,10 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
           </div>
         </form>
       </div>
-      <EvidenceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <EvidenceModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
