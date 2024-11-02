@@ -64,6 +64,31 @@ const MarqueePartners = () => {
       gradientTo: "to-cyan-50",
       iconColor: "text-blue-600",
     },
+    {
+      name: "OpenAI",
+      type: "Technology Partner",
+      emoji: "🤖",
+      gradientFrom: "from-green-50",
+      gradientTo: "to-emerald-50",
+      iconColor: "text-green-600",
+    },
+    {
+      name: "Anthropic",
+      type: "Research Partner",
+      emoji: "🧠",
+      gradientFrom: "from-purple-50",
+      gradientTo: "to-indigo-50",
+      iconColor: "text-purple-600",
+    },
+    {
+      name: "U.S. Embassy",
+      type: "Government Partner",
+      emoji: "🏛️",
+      gradientFrom: "from-blue-50",
+      gradientTo: "to-cyan-50",
+      iconColor: "text-blue-600",
+    },
+    
   ];
 
   return (
