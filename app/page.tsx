@@ -3,11 +3,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Shield,
-  Database,
-  Check,
-  Star,
   Brain,
-  Target,
   Search,
   CheckCircle2,
   BookOpen,
