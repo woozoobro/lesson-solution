@@ -13,94 +13,91 @@ import {
   Lightbulb,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+
+const partners = [
+  {
+    name: "OpenAI",
+    type: "Technology Partner",
+    logo: "/openai.svg",
+    gradientFrom: "from-green-50",
+    gradientTo: "to-emerald-50",
+    iconColor: "text-green-600",
+  },
+  {
+    name: "Anthropic",
+    type: "Research Partner",
+    logo: "/anthropic.svg",
+    gradientFrom: "from-purple-50",
+    gradientTo: "to-indigo-50",
+    iconColor: "text-purple-600",
+  },
+  {
+    name: "U.S. Embassy",
+    type: "Government Partner",
+    logo: "/us-embassy.svg",
+    gradientFrom: "from-blue-50",
+    gradientTo: "to-cyan-50",
+    iconColor: "text-blue-600",
+  },
+  {
+    name: "Intel",
+    type: "Technology Partner",
+    logo: "/intel.svg",
+    gradientFrom: "from-sky-50",
+    gradientTo: "to-blue-50",
+    iconColor: "text-blue-600",
+  },
+  {
+    name: "Google Cloud",
+    type: "Technology Partner",
+    logo: "/google-cloud.svg",
+    gradientFrom: "from-red-50",
+    gradientTo: "to-orange-50",
+    iconColor: "text-red-600",
+  },
+  {
+    name: "EdgeTheory",
+    type: "Technology Partner",
+    logo: "/microsoft-edge.svg",
+    gradientFrom: "from-indigo-50",
+    gradientTo: "to-violet-50",
+    iconColor: "text-indigo-600",
+  },
+  {
+    name: "Upstage",
+    type: "Technology Partner",
+    logo: "/upstage.svg",
+    gradientFrom: "from-purple-50",
+    gradientTo: "to-indigo-50",
+    iconColor: "text-purple-600",
+  },
+];
 
 const MarqueePartners = () => {
-  const partners = [
-    {
-      name: "OpenAI",
-      type: "Technology Partner",
-      emoji: "🤖",
-      gradientFrom: "from-green-50",
-      gradientTo: "to-emerald-50",
-      iconColor: "text-green-600",
-    },
-    {
-      name: "Anthropic",
-      type: "Research Partner",
-      emoji: "🧠",
-      gradientFrom: "from-purple-50",
-      gradientTo: "to-indigo-50",
-      iconColor: "text-purple-600",
-    },
-    {
-      name: "U.S. Embassy",
-      type: "Government Partner",
-      emoji: "🏛️",
-      gradientFrom: "from-blue-50",
-      gradientTo: "to-cyan-50",
-      iconColor: "text-blue-600",
-    },
-    {
-      name: "OpenAI",
-      type: "Technology Partner",
-      emoji: "🤖",
-      gradientFrom: "from-green-50",
-      gradientTo: "to-emerald-50",
-      iconColor: "text-green-600",
-    },
-    {
-      name: "Anthropic",
-      type: "Research Partner",
-      emoji: "🧠",
-      gradientFrom: "from-purple-50",
-      gradientTo: "to-indigo-50",
-      iconColor: "text-purple-600",
-    },
-    {
-      name: "U.S. Embassy",
-      type: "Government Partner",
-      emoji: "🏛️",
-      gradientFrom: "from-blue-50",
-      gradientTo: "to-cyan-50",
-      iconColor: "text-blue-600",
-    },
-    {
-      name: "OpenAI",
-      type: "Technology Partner",
-      emoji: "🤖",
-      gradientFrom: "from-green-50",
-      gradientTo: "to-emerald-50",
-      iconColor: "text-green-600",
-    },
-    {
-      name: "Anthropic",
-      type: "Research Partner",
-      emoji: "🧠",
-      gradientFrom: "from-purple-50",
-      gradientTo: "to-indigo-50",
-      iconColor: "text-purple-600",
-    },
-    {
-      name: "U.S. Embassy",
-      type: "Government Partner",
-      emoji: "🏛️",
-      gradientFrom: "from-blue-50",
-      gradientTo: "to-cyan-50",
-      iconColor: "text-blue-600",
-    },
-  ];
+  // partners를 두 번 반복하여 새 배열 생성
+  const duplicatedPartners = [...partners, ...partners];
 
   return (
     <div className="w-full overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
       <div className="relative flex">
         <div className="flex animate-marquee whitespace-nowrap">
-          {partners.map((partner, index) => (
+          {duplicatedPartners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
               <div
-                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}
+                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} 
+                           rounded-lg shadow-md p-6 w-72 hover:shadow-lg 
+                           transition-shadow duration-300 border border-gray-100`}
               >
                 <div className={`flex flex-col items-center text-center`}>
-                  <span className="text-5xl mb-3">{partner.emoji}</span>
+                  <div className="w-24 h-24 relative mb-3 flex items-center justify-center">
+                    <Image
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
                   <div className="text-sm font-semibold text-blue-600 mb-2">
                     {partner.type}
                   </div>
@@ -114,13 +111,22 @@ const MarqueePartners = () => {
         </div>
 
         <div className="flex animate-marquee2 whitespace-nowrap">
-          {partners.map((partner, index) => (
+          {duplicatedPartners.map((partner, index) => (
             <div key={index} className="mx-8 flex items-center justify-center">
               <div
-                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} rounded-lg shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300 border border-gray-100`}
+                className={`bg-gradient-to-br ${partner.gradientFrom} ${partner.gradientTo} 
+                           rounded-lg shadow-md p-6 w-72 hover:shadow-lg 
+                           transition-shadow duration-300 border border-gray-100`}
               >
                 <div className={`flex flex-col items-center text-center`}>
-                  <span className="text-5xl mb-3">{partner.emoji}</span>
+                  <div className="w-32 h-32 relative mb-3 flex items-center justify-center">
+                    <Image
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      fill
+                      className="object-contain p-2"
+                    />
+                  </div>
                   <div className="text-sm font-semibold text-blue-600 mb-2">
                     {partner.type}
                   </div>
@@ -238,30 +244,27 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[600px] text-white overflow-hidden">
+      <section className="relative min-h-[300px] sm:min-h-[400px] md:min-h-[500px] text-white overflow-hidden">
         {/* Video Background */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover overflow-hidden"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/hero-bg.mp4" type="video/mp4" />
         </video>
-        {/* Overlay Layers */}
         <div className="absolute inset-0 bg-black/50" />
-        {/* Main dim overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/50 to-transparent" />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-soft-light" />
         {/* Content */}
-        <div className="relative h-full container mx-auto px-4 py-36">
+        <div className="relative h-full container mx-auto px-4 my-36">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text">
               Navigate AI With Confidence
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100/90">
+            <p className="text-xl md:text-2xl pb-8 text-blue-100/90">
               Your guide to understanding, verifying, and effectively using
               AI-generated content
             </p>
