@@ -68,6 +68,7 @@ interface Source {
 export default function ChatView() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [input, setInput] = useState(
     "What's the history and health benefits of pumpkin pie for this fall season?",
   );
@@ -154,6 +155,7 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
     setTimeout(() => {
       setMessages((prev) => [...prev, presetAnswer]);
       setIsLoading(false);
+      setHasSubmitted(true); 
     }, 2000);
   };
 
@@ -261,13 +263,14 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
             <input
               type="text"
               value={input}
+              readOnly
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
               className="flex-1 rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               type="submit"
-              disabled={!input.trim() || isLoading}
+              disabled={!input.trim() || isLoading || hasSubmitted}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {isLoading ? (
