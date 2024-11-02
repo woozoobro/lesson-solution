@@ -245,17 +245,16 @@ export default function LandingPage() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover overflow-hidden"
         >
           <source src="/hero-bg.mp4" type="video/mp4" />
         </video>
         {/* Overlay Layers */}
-        <div className="absolute inset-0 bg-black/50" />{" "}
+        <div className="absolute inset-0 bg-black/50" />
         {/* Main dim overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/50 to-transparent" />{" "}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/50 to-transparent" />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-soft-light" />{" "}
-        {/* Texture overlay */}
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-soft-light" />
         {/* Content */}
         <div className="relative h-full container mx-auto px-4 py-36">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
