@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Shield,
@@ -16,16 +16,16 @@ import {
 const MarqueePartners = () => {
   const partners = [
     {
-      name: "U.S. Embassy",
-      type: "Government Partner",
-    },
-    {
       name: "OpenAI",
       type: "Technology Partner",
     },
     {
       name: "Anthropic",
       type: "Research Partner",
+    },
+    {
+      name: "U.S. Embassy",
+      type: "Government Partner",
     },
     {
       name: "MIT",
@@ -42,7 +42,7 @@ const MarqueePartners = () => {
   ];
 
   // 파트너 목록을 두 배로 복제하여 무한 스크롤 효과 생성
-  const duplicatedPartners = [...partners, ...partners];
+  // const duplicatedPartners = [...partners, ...partners];
 
   return (
     <div className="w-full overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
@@ -84,7 +84,21 @@ const MarqueePartners = () => {
 };
 
 // 애니메이션 섹션 컴포넌트
-const AnimatedSection = ({ children, delay = 0, className = "" }) => {
+interface AnimatedSectionProps {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}
+
+interface AnimatedGridItemProps {
+  children: React.ReactNode;
+  index: number;
+}
+const AnimatedSection = ({
+  children,
+  delay = 0,
+  className = "",
+}: AnimatedSectionProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -102,7 +116,7 @@ const AnimatedSection = ({ children, delay = 0, className = "" }) => {
 };
 
 // 그리드 아이템 애니메이션 컴포넌트
-const AnimatedGridItem = ({ children, index }) => {
+const AnimatedGridItem = ({ children, index }: AnimatedGridItemProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -169,13 +183,6 @@ export default function LandingPage() {
     },
   ];
 
-  const metrics = [
-    { value: "99.9%", label: "Accuracy Rate" },
-    { value: "500+", label: "Active Users" },
-    { value: "50%", label: "Error Reduction" },
-    { value: "24/7", label: "Monitoring" },
-  ];
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -204,7 +211,7 @@ export default function LandingPage() {
       </section>
 
       {/* Partners Section */}
-      <section className="relative py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="relative pt-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-white/50"></div>
         <div className="container mx-auto px-4 mb-0 relative">
           <AnimatedSection className="text-center mb-16">
@@ -218,27 +225,6 @@ export default function LandingPage() {
           </AnimatedSection>
         </div>
         <MarqueePartners />
-      </section>
-
-      {/* Metrics Section */}
-      <section className="py-24 bg-gradient-to-b from-white to-gray-50 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/5 to-transparent"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {metrics.map((metric, index) => (
-              <AnimatedGridItem key={index} index={index}>
-                <div className="text-center bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
-                  <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                    {metric.value}
-                  </div>
-                  <div className="text-gray-600 font-medium">
-                    {metric.label}
-                  </div>
-                </div>
-              </AnimatedGridItem>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Features Section */}
