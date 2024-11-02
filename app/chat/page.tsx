@@ -22,15 +22,15 @@ interface ModalProps {
 }
 
 const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);  
 
   useEffect(() => {
     if (isOpen) {
-      setIsLoading(true);
+      setIsLoading(true);      
       // Simulate API delay
       const timer = setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
@@ -60,35 +60,36 @@ const EvidenceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <div className="p-4">
             <h3 className="text-xl font-semibold mb-4">Supporting Evidence</h3>
             <div className="relative w-full aspect-video bg-gray-50 rounded-lg overflow-hidden">
-              {isLoading ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="w-full max-w-md mx-auto p-4">
-                    {/* Loading skeleton animation */}
-                    <div className="animate-pulse space-y-4">
-                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                      <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-                      <div className="flex justify-center mt-8">
-                        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                      </div>
-                      <div className="text-center text-sm text-gray-500 mt-2">
-                        Loading knowledge graph...
-                      </div>
+
+              <div className={isLoading ? "absolute inset-0 flex flex-col items-center justify-center" : "hidden"}>
+                <div className="w-full max-w-md mx-auto p-4">
+                  {/* Loading skeleton animation */}
+                  <div className="animate-pulse space-y-4">
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    <div className="flex justify-center mt-8">
+                      <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                    </div>
+                    <div className="text-center text-sm text-gray-500 mt-2">
+                      Loading knowledge graph...
                     </div>
                   </div>
                 </div>
-              ) : (
-                <div className="transition-opacity duration-300 ease-in-out">
-                  <Image
-                    src={kgSample}
-                    alt="Knowledge Graph Evidence"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
-                  />
-                </div>
-              )}
+              </div>
+
+              <div className={isLoading ? "opacity-0 transition-opacity" : "transition-opacity duration-1000 ease-in-out opacity-100"}>
+                <Image
+                  src={kgSample}
+                  alt="Knowledge Graph Evidence"
+                  fill
+                  className="object-contain "
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+                // onLoadingComplete={() => setImageLoaded(true)}
+                />
+              </div>
+
             </div>
           </div>
         </div>
