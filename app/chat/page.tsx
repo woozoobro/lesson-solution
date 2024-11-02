@@ -144,7 +144,7 @@ While enjoying this seasonal treat, remember that traditional recipes can be ada
     setTimeout(() => {
       setMessages(prev => [...prev, presetAnswer]);
       setIsLoading(false);
-    }, 1000);
+    }, 2000);
   };
 
   const renderSources = (sources: Source[]) => (
