@@ -257,7 +257,7 @@ export default function LandingPage() {
         </video>
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/50 to-transparent" />
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-soft-light" />
+        <div className="absolute inset-0 opacity-[0.03] mix-blend-soft-light" />
         {/* Content */}
         <div className="relative h-full container mx-auto px-4 my-36">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
@@ -311,7 +311,7 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative">
-        <div className="absolute inset-0 bg-[url('/dot-pattern.svg')] opacity-5"></div>
+        <div className="absolute inset-0 opacity-5"></div>
         <div className="container mx-auto px-2 relative">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
@@ -370,7 +370,7 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 relative">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        <div className="absolute inset-0 opacity-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent"></div>
         <div className="container mx-auto px-4 relative">
           <AnimatedSection className="max-w-3xl mx-auto text-center text-white">
