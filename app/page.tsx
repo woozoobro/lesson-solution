@@ -59,7 +59,7 @@ const partners = [
   {
     name: "EdgeTheory",
     type: "Technology Partner",
-    logo: "/microsoft-edge.svg",
+    logo: "/edgetheory-logo.jpeg",
     gradientFrom: "from-indigo-50",
     gradientTo: "to-violet-50",
     iconColor: "text-indigo-600",
